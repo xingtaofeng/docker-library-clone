@@ -1,7 +1,7 @@
-# this file is generated via https://github.com/espocrm/docker/blob/5fc2ec1d31dafdeddd1664e97daa44bc6821393a/generate-stackbrew-library.sh
+# this file is generated via https://github.com/espocrm/docker/blob/ecda237ed28ba02d1d0fa84407e6791bbf4e969d/generate-stackbrew-library.sh
 Maintainers: Taras Machyshyn <docker@espocrm.com> (@tmachyshyn)
 GitRepo: https://github.com/espocrm/docker.git
-GitCommit: 5fc2ec1d31dafdeddd1664e97daa44bc6821393a
+GitCommit: ecda237ed28ba02d1d0fa84407e6791bbf4e969d
 
 Tags: apache, 5.9.3-apache, 5.9-apache, 5-apache, latest, 5.9.3, 5.9, 5
 Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, ppc64le
