@@ -1,7 +1,7 @@
-# this file is generated via https://github.com/espocrm/docker/blob/152ba74e67120fb10cea6483c1122a3c768f85ed/generate-stackbrew-library.sh
+# this file is generated via https://github.com/espocrm/docker/blob/ae253b1e73d2a32f2849c9e91c60b8d9bb1ce3cc/generate-stackbrew-library.sh
 Maintainers: Taras Machyshyn <docker@espocrm.com> (@tmachyshyn)
 GitRepo: https://github.com/espocrm/docker.git
-GitCommit: 152ba74e67120fb10cea6483c1122a3c768f85ed
+GitCommit: ae253b1e73d2a32f2849c9e91c60b8d9bb1ce3cc
 
 Tags: apache, 6.0.3-apache, 6.0-apache, 6-apache, latest, 6.0.3, 6.0, 6
 Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, ppc64le
