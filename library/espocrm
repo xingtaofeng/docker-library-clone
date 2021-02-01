@@ -1,16 +1,16 @@
-# this file is generated via https://github.com/espocrm/docker/blob/e20cbd549fd455637e9f7f91ea543544432f8230/generate-stackbrew-library.sh
+# this file is generated via https://github.com/espocrm/docker/blob/d24f566c9401bcf913544674740da30ab3a534db/generate-stackbrew-library.sh
 Maintainers: Taras Machyshyn <docker@espocrm.com> (@tmachyshyn)
 GitRepo: https://github.com/espocrm/docker.git
-GitCommit: e20cbd549fd455637e9f7f91ea543544432f8230
+GitCommit: d24f566c9401bcf913544674740da30ab3a534db
 
-Tags: apache, 6.1.1-apache, 6.1-apache, 6-apache, latest, 6.1.1, 6.1, 6
+Tags: apache, 6.1.2-apache, 6.1-apache, 6-apache, latest, 6.1.2, 6.1, 6
 Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, ppc64le
 Directory: apache
 
-Tags: fpm, 6.1.1-fpm, 6.1-fpm, 6-fpm
+Tags: fpm, 6.1.2-fpm, 6.1-fpm, 6-fpm
 Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, ppc64le
 Directory: fpm
 
-Tags: fpm-alpine, 6.1.1-fpm-alpine, 6.1-fpm-alpine, 6-fpm-alpine
+Tags: fpm-alpine, 6.1.2-fpm-alpine, 6.1-fpm-alpine, 6-fpm-alpine
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le
 Directory: fpm-alpine
