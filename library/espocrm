@@ -1,16 +1,16 @@
-# this file is generated via https://github.com/espocrm/espocrm-docker/blob/b77c255309fa104a115127f3d758cd8846f0b58e/generate-stackbrew-library.sh
+# this file is generated via https://github.com/espocrm/espocrm-docker/blob/f00e997fb4e87f74e69cff10343c479d61ba56f4/generate-stackbrew-library.sh
 Maintainers: Taras Machyshyn <docker@espocrm.com> (@tmachyshyn)
 GitRepo: https://github.com/espocrm/espocrm-docker.git
-GitCommit: b77c255309fa104a115127f3d758cd8846f0b58e
+GitCommit: f00e997fb4e87f74e69cff10343c479d61ba56f4
 
-Tags: apache, 7.5.6-apache, 7.5-apache, 7-apache, latest, 7.5.6, 7.5, 7
+Tags: apache, 8.0.0-apache, 8.0-apache, 8-apache, latest, 8.0.0, 8.0, 8
 Architectures: amd64, i386, arm32v7, arm64, s390x
 Directory: apache
 
-Tags: fpm, 7.5.6-fpm, 7.5-fpm, 7-fpm
+Tags: fpm, 8.0.0-fpm, 8.0-fpm, 8-fpm
 Architectures: amd64, i386, arm32v7, arm64, s390x
 Directory: fpm
 
-Tags: fpm-alpine, 7.5.6-fpm-alpine, 7.5-fpm-alpine, 7-fpm-alpine
+Tags: fpm-alpine, 8.0.0-fpm-alpine, 8.0-fpm-alpine, 8-fpm-alpine
 Architectures: amd64, i386, arm32v6, arm32v7, arm64v8, ppc64le, s390x
 Directory: fpm-alpine
