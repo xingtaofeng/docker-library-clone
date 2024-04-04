@@ -2,7 +2,8 @@ Maintainers: Carl Boettiger <rocker-maintainers@eddelbuettel.com> (@cboettig),
              Dirk Eddelbuettel <rocker-maintainers@eddelbuettel.com> (@eddelbuettel)
 GitRepo: https://github.com/rocker-org/rocker.git
 
-Tags: 3.6.3, latest
-Architectures: amd64, arm64v8
-GitCommit: e76a46e4d082c0294437c34df1072f48c6fa3685
-Directory: r-base
+Tags: 4.3.3, latest
+Architectures: amd64, arm64v8, ppc64le, s390x
+GitCommit: d373d03aa4d491216905eb24b18d0f56165dd43f
+Directory: r-base/4.3.3
+

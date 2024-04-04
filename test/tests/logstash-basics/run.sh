@@ -9,7 +9,11 @@ dir="$(dirname "$(readlink -f "$BASH_SOURCE")")"
 image="$1"
 
 # Use a client image with curl for testing
-clientImage='buildpack-deps:buster-curl'
+clientImage='buildpack-deps:bookworm-curl'
+# ensure the clientImage is ready and available
+if ! docker image inspect "$clientImage" &> /dev/null; then
+	docker pull "$clientImage" > /dev/null
+fi
 
 # input via HTTP (default port 0.0.0.0:8080)
 # output via stdout, newline-delimited nothing-but-the-message

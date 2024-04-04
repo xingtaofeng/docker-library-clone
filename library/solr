@@ -1,105 +1,39 @@
-# this file is generated via https://github.com/docker-solr/docker-solr/blob/32c24945a2cb785c32d5974b18e9ad35ebe429f5/generate-stackbrew-library.sh
+# this file is generated via https://github.com/apache/solr-docker/blob/47b84007a29fa9a9d47917e1ba7f82cf863a5c93/generate-stackbrew-library.sh
 
-Maintainers: Martijn Koster <mak-github@greenhills.co.uk> (@makuk66),
-             Shalin Mangar <shalin@apache.org> (@shalinmangar)
-GitRepo: https://github.com/docker-solr/docker-solr.git
+Maintainers: The Apache Solr Project <dev@solr.apache.org> (@asfbot),
+ Shalin Mangar (@shalinmangar),
+ David Smiley (@dsmiley),
+ Jan Høydahl (@janhoy),
+ Houston Putman (@houstonputman)
+GitRepo: https://github.com/apache/solr-docker.git
+GitFetch: refs/heads/main
 
-Tags: 8.4.1, 8.4, 8, latest
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 8.4
+Tags: 9.5.0, 9.5, 9, latest
+Architectures: amd64, arm32v7, arm64v8, ppc64le, s390x
+GitCommit: 47b84007a29fa9a9d47917e1ba7f82cf863a5c93
+Directory: 9.5
 
-Tags: 8.4.1-slim, 8.4-slim, 8-slim, slim
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 8.4/slim
+Tags: 9.5.0-slim, 9.5-slim, 9-slim, slim
+Architectures: amd64, arm32v7, arm64v8, ppc64le, s390x
+GitCommit: 47b84007a29fa9a9d47917e1ba7f82cf863a5c93
+Directory: 9.5-slim
 
-Tags: 8.3.1, 8.3
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 8.3
+Tags: 9.4.1, 9.4
+Architectures: amd64, arm32v7, arm64v8, ppc64le, s390x
+GitCommit: 47b84007a29fa9a9d47917e1ba7f82cf863a5c93
+Directory: 9.4
 
-Tags: 8.3.1-slim, 8.3-slim
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 8.3/slim
+Tags: 9.4.1-slim, 9.4-slim
+Architectures: amd64, arm32v7, arm64v8, ppc64le, s390x
+GitCommit: 47b84007a29fa9a9d47917e1ba7f82cf863a5c93
+Directory: 9.4-slim
 
-Tags: 8.2.0, 8.2
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 8.2
+Tags: 8.11.3, 8.11, 8
+Architectures: amd64, arm32v7, arm64v8, ppc64le, s390x
+GitCommit: 47b84007a29fa9a9d47917e1ba7f82cf863a5c93
+Directory: 8.11
 
-Tags: 8.2.0-slim, 8.2-slim
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 8.2/slim
-
-Tags: 8.1.1, 8.1
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 8.1
-
-Tags: 8.1.1-slim, 8.1-slim
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 8.1/slim
-
-Tags: 8.0.0, 8.0
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 8.0
-
-Tags: 8.0.0-slim, 8.0-slim
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 8.0/slim
-
-Tags: 7.7.2, 7.7, 7
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 7.7
-
-Tags: 7.7.2-slim, 7.7-slim, 7-slim
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 7.7/slim
-
-Tags: 7.6.0, 7.6
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 7.6
-
-Tags: 7.6.0-slim, 7.6-slim
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 7.6/slim
-
-Tags: 7.5.0, 7.5
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 7.5
-
-Tags: 7.5.0-slim, 7.5-slim
-Architectures: amd64, arm64v8
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 7.5/slim
-
-Tags: 6.6.6, 6.6, 6
-Architectures: amd64
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 6.6
-
-Tags: 6.6.6-slim, 6.6-slim, 6-slim
-Architectures: amd64
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 6.6/slim
-
-Tags: 5.5.5, 5.5, 5
-Architectures: amd64
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 5.5
-
-Tags: 5.5.5-slim, 5.5-slim, 5-slim
-Architectures: amd64
-GitCommit: 394ead2fa128d90afb072284bce5f1715345c53c
-Directory: 5.5/slim
+Tags: 8.11.3-slim, 8.11-slim, 8-slim
+Architectures: amd64, arm32v7, arm64v8, ppc64le, s390x
+GitCommit: 47b84007a29fa9a9d47917e1ba7f82cf863a5c93
+Directory: 8.11-slim

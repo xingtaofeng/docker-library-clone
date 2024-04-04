@@ -1,17 +1,18 @@
-# maintainer: Frank Celler <info@arangodb.com> (@fceller)
-# maintainer: Wilfried Goesgens <w.goesgens@arangodb.org> (@dothebart)
-# maintainer: Vadim Kondratyev <vadim@arangodb.org> (@KVS85)
+Maintainers: Frank Celler <info@arangodb.com> (@fceller), Wilfried Goesgens <w.goesgens@arangodb.org> (@dothebart), Vadim Kondratyev <vadim@arangodb.org> (@KVS85)
+GitRepo: https://github.com/arangodb/arangodb-docker
+GitFetch: refs/heads/official
 
-2.8: https://github.com/arangodb/arangodb-docker@d6fca9a137cd21345b1d380fc0e72daacb6130ce jessie/2.8.11
-2.8.11: https://github.com/arangodb/arangodb-docker@d6fca9a137cd21345b1d380fc0e72daacb6130ce jessie/2.8.11
-3.2: https://github.com/arangodb/arangodb-docker@b4c22ad8bf4facbbc7c3b24e985251a09fcdbcec stretch/3.2.17
-3.2.17: https://github.com/arangodb/arangodb-docker@b4c22ad8bf4facbbc7c3b24e985251a09fcdbcec stretch/3.2.17
-3.3: https://github.com/arangodb/arangodb-docker@27ab30feeccb87295f838ed6e0d0d9a7b67908bc stretch/3.3.25
-3.3.25: https://github.com/arangodb/arangodb-docker@27ab30feeccb87295f838ed6e0d0d9a7b67908bc stretch/3.3.25
-3.4: https://github.com/arangodb/arangodb-docker@4aa774dd973b77f958fbe7a90285ca2452ca22aa alpine/3.4.9
-3.4.9: https://github.com/arangodb/arangodb-docker@4aa774dd973b77f958fbe7a90285ca2452ca22aa alpine/3.4.9
-3.5: https://github.com/arangodb/arangodb-docker@8fa0c5d9b74ca36cf3e7ed6e8df8954c87cf04a6 alpine/3.5.4
-3.5.4: https://github.com/arangodb/arangodb-docker@8fa0c5d9b74ca36cf3e7ed6e8df8954c87cf04a6 alpine/3.5.4
-3.6: https://github.com/arangodb/arangodb-docker@3a3b5e8f4314686cb531720158e27bf6abe0c11b alpine/3.6.1
-3.6.1: https://github.com/arangodb/arangodb-docker@3a3b5e8f4314686cb531720158e27bf6abe0c11b alpine/3.6.1
-latest: https://github.com/arangodb/arangodb-docker@3a3b5e8f4314686cb531720158e27bf6abe0c11b alpine/3.6.1
+Tags: 3.10, 3.10.13
+Architectures: amd64, arm64v8
+GitCommit: af118f06c76677531116ee7a263e8d3cca1d6d63
+Directory: alpine/3.10.13
+
+Tags: 3.11, 3.11.8
+Architectures: amd64, arm64v8
+GitCommit: 22a949aa3755175bfa869c48b5a0a9633109e291
+Directory: alpine/3.11.8
+
+Tags: 3.12, 3.12.0, latest
+Architectures: amd64, arm64v8
+GitCommit: c507e8709115419c988f47f735f72a4d95538131
+Directory: alpine/3.12.0

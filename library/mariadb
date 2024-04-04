@@ -1,30 +1,51 @@
-# this file is generated via https://github.com/docker-library/mariadb/blob/c969655b3c92a1ae3f066e506ab7b32ff4ba4582/generate-stackbrew-library.sh
+# this file is generated via https://github.com/MariaDB/mariadb-docker/blob/174b68b5ef90f92902c15d73a0cfdd1cb99146d8/generate-stackbrew-library.sh
 
-Maintainers: Tianon Gravi <admwiggin@gmail.com> (@tianon),
-             Joseph Ferguson <yosifkit@gmail.com> (@yosifkit)
-GitRepo: https://github.com/docker-library/mariadb.git
+Maintainers: Daniel Black <daniel@mariadb.org> (@grooverdan),
+             Daniel Bartholomew <dbart@mariadb.com> (@dbart),
+             Faustin Lammler <faustin@mariadb.org> (@fauust)
+GitRepo: https://github.com/MariaDB/mariadb-docker.git
 
-Tags: 10.5.1-bionic, 10.5-bionic, beta-bionic, 10.5.1, 10.5, beta
-Architectures: amd64, arm64v8, ppc64le
-GitCommit: 17fbf28e55c357c52d5025c50d65f2ab2ab508e2
+Tags: 11.4.1-rc-jammy, 11.4-rc-jammy, 11.4.1-rc, 11.4-rc
+Architectures: amd64, arm64v8, ppc64le, s390x
+GitCommit: d7a950d41e9347ac94ad2d2f28469bff74858db7
+Directory: 11.4
+
+Tags: 11.3.2-jammy, 11.3-jammy, 11-jammy, jammy, 11.3.2, 11.3, 11, latest
+Architectures: amd64, arm64v8, ppc64le, s390x
+GitCommit: d7a950d41e9347ac94ad2d2f28469bff74858db7
+Directory: 11.3
+
+Tags: 11.2.3-jammy, 11.2-jammy, 11.2.3, 11.2
+Architectures: amd64, arm64v8, ppc64le, s390x
+GitCommit: d7a950d41e9347ac94ad2d2f28469bff74858db7
+Directory: 11.2
+
+Tags: 11.1.4-jammy, 11.1-jammy, 11.1.4, 11.1
+Architectures: amd64, arm64v8, ppc64le, s390x
+GitCommit: d7a950d41e9347ac94ad2d2f28469bff74858db7
+Directory: 11.1
+
+Tags: 11.0.5-jammy, 11.0-jammy, 11.0.5, 11.0
+Architectures: amd64, arm64v8, ppc64le, s390x
+GitCommit: d7a950d41e9347ac94ad2d2f28469bff74858db7
+Directory: 11.0
+
+Tags: 10.11.7-jammy, 10.11-jammy, 10-jammy, lts-jammy, 10.11.7, 10.11, 10, lts
+Architectures: amd64, arm64v8, ppc64le, s390x
+GitCommit: d7a950d41e9347ac94ad2d2f28469bff74858db7
+Directory: 10.11
+
+Tags: 10.6.17-focal, 10.6-focal, 10.6.17, 10.6
+Architectures: amd64, arm64v8, ppc64le, s390x
+GitCommit: d7a950d41e9347ac94ad2d2f28469bff74858db7
+Directory: 10.6
+
+Tags: 10.5.24-focal, 10.5-focal, 10.5.24, 10.5
+Architectures: amd64, arm64v8, ppc64le, s390x
+GitCommit: d7a950d41e9347ac94ad2d2f28469bff74858db7
 Directory: 10.5
 
-Tags: 10.4.12-bionic, 10.4-bionic, 10-bionic, bionic, 10.4.12, 10.4, 10, latest
+Tags: 10.4.33-focal, 10.4-focal, 10.4.33, 10.4
 Architectures: amd64, arm64v8, ppc64le
-GitCommit: 17fbf28e55c357c52d5025c50d65f2ab2ab508e2
+GitCommit: 1d95dfc811b0666ab39cecdbf88c4d956e74f765
 Directory: 10.4
-
-Tags: 10.3.22-bionic, 10.3-bionic, 10.3.22, 10.3
-Architectures: amd64, arm64v8, ppc64le
-GitCommit: 17fbf28e55c357c52d5025c50d65f2ab2ab508e2
-Directory: 10.3
-
-Tags: 10.2.31-bionic, 10.2-bionic, 10.2.31, 10.2
-Architectures: amd64, arm64v8, ppc64le
-GitCommit: 17fbf28e55c357c52d5025c50d65f2ab2ab508e2
-Directory: 10.2
-
-Tags: 10.1.44-bionic, 10.1-bionic, 10.1.44, 10.1
-Architectures: amd64, arm64v8, ppc64le
-GitCommit: 17fbf28e55c357c52d5025c50d65f2ab2ab508e2
-Directory: 10.1

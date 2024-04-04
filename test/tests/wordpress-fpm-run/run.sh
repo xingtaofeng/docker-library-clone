@@ -8,14 +8,18 @@ image="$1"
 # Build a client image with cgi-fcgi for testing
 clientImage='librarytest/wordpress-fpm-run:fcgi-client'
 docker build -t "$clientImage" - > /dev/null <<'EOF'
-FROM debian:stretch-slim
+FROM debian:bookworm-slim
 
-RUN set -x && apt-get update && apt-get install -y libfcgi0ldbl && rm -rf /var/lib/apt/lists/*
+RUN set -x && apt-get update && apt-get install -y --no-install-recommends libfcgi-bin && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["cgi-fcgi"]
 EOF
 
 mysqlImage='mysql:5.7'
+# ensure the mysqlImage is ready and available
+if ! docker image inspect "$mysqlImage" &> /dev/null; then
+	docker pull "$mysqlImage" > /dev/null
+fi
 
 # Create an instance of the container-under-test
 mysqlCid="$(docker run -d -e MYSQL_ROOT_PASSWORD="test-$RANDOM-password-$RANDOM-$$" "$mysqlImage")"
@@ -38,6 +42,7 @@ fcgi-request() {
 		-e SCRIPT_NAME="$url" \
 		-e SCRIPT_FILENAME=/var/www/html/"${url#/}" \
 		-e QUERY_STRING="$queryString" \
+		-e HTTP_HOST='localhost' \
 		"$clientImage" \
 		-bind -connect fpm:9000
 }
@@ -48,5 +53,4 @@ fcgi-request() {
 
 # index.php redirects to wp-admin/install.php, check that it contains the word "setup" somewhere
 # <form id="setup" method="post" action="?step=1"><label class='screen-reader-text' for='language'>Select a default language</label>
-fcgi-request GET '/wp-admin/install.php' |tac|tac| grep -iq setup
-# (without "|tac|tac|" we get "broken pipe" since "grep" closes the pipe before "curl" is done reading it)
+fcgi-request GET '/wp-admin/install.php' | grep -i setup > /dev/null

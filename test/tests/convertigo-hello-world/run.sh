@@ -6,7 +6,11 @@ dir="$(dirname "$(readlink -f "$BASH_SOURCE")")"
 serverImage="$1"
 
 # Use a client image with curl for testing
-clientImage='buildpack-deps:buster-curl'
+clientImage='buildpack-deps:bookworm-curl'
+# ensure the clientImage is ready and available
+if ! docker image inspect "$clientImage" &> /dev/null; then
+	docker pull "$clientImage" > /dev/null
+fi
 
 # Create an instance of the container-under-test
 cid="$(docker run -d "$serverImage")"
@@ -23,7 +27,7 @@ _request() {
 }
 
 # Make sure that Tomcat is listening
-. "$dir/../../retry.sh" '_request / &> /dev/null'
+. "$dir/../../retry.sh" -s 5 '_request / &> /dev/null'
 
 # Check that we can request /
 [ -n "$(_request '/')" ]

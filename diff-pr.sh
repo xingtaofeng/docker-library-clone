@@ -5,6 +5,9 @@ shopt -s dotglob
 # make sure we can GTFO
 trap 'echo >&2 Ctrl+C captured, exiting; exit 1' SIGINT
 
+# if bashbrew is missing, bail early with a sane error
+bashbrew --version > /dev/null
+
 usage() {
 	cat <<-EOUSAGE
 		usage: $0 [PR number] [repo[:tag]]
@@ -57,7 +60,8 @@ fi
 pull="$1" # PR number
 shift
 
-#dir="$(dirname "$(readlink -f "$BASH_SOURCE")")"
+diffDir="$(readlink -f "$BASH_SOURCE")"
+diffDir="$(dirname "$diffDir")"
 
 tempDir="$(mktemp -d)"
 trap "rm -rf '$tempDir'" EXIT
@@ -67,47 +71,30 @@ git clone --quiet \
 	https://github.com/docker-library/official-images.git \
 	oi
 
-git -C oi fetch --quiet \
-	origin "pull/$pull/merge":pull
-
-images=( "$@" )
-if [ "${#images[@]}" -eq 0 ]; then
-	images=( $(git -C oi/library diff --name-only HEAD...pull -- . | xargs -n1 basename) )
+if [ "$pull" != '0' ]; then
+	git -C oi fetch --quiet \
+		origin "pull/$pull/merge":refs/heads/pull
+else
+	git -C oi fetch --quiet --update-shallow \
+		"$diffDir" HEAD:refs/heads/pull
 fi
 
-export BASHBREW_CACHE="${BASHBREW_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/bashbrew}"
+externalPins=
+if [ "$#" -eq 0 ]; then
+	externalPins="$(git -C oi/.external-pins diff --no-renames --name-only HEAD...pull -- '*/**')"
+
+	images="$(git -C oi/library diff --no-renames --name-only HEAD...pull -- .)"
+	if [ -z "$images" ] && [ -z "$externalPins" ]; then
+		exit 0
+	fi
+	images="$(xargs -rn1 basename <<<"$images")"
+	set -- $images
+fi
+
 export BASHBREW_LIBRARY="$PWD/oi/library"
 
 : "${BASHBREW_ARCH:=amd64}" # TODO something smarter with arches
 export BASHBREW_ARCH
-
-# "bashbrew cat" template for duplicating something like "bashbrew list --uniq" but with architectures too
-archesListTemplate='
-	{{- range $e := $.Entries -}}
-		{{- range .Architectures -}}
-			{{- $.RepoName -}}:{{- $e.Tags | last -}}
-			{{- " @ " -}}
-			{{- . -}}
-			{{- "\n" -}}
-		{{- end -}}
-	{{- end -}}
-'
-# ... and SharedTags
-sharedTagsListTemplate='
-	{{- range $group := .Manifest.GetSharedTagGroups -}}
-		{{- range $tag := $group.SharedTags -}}
-			{{- join ":" $.RepoName $tag -}}
-			{{- " -- " -}}
-			{{- range $i, $e := $group.Entries -}}
-				{{- if gt $i 0 -}}
-					{{- ", " -}}
-				{{- end -}}
-				{{- join ":" $.RepoName ($e.Tags | last) -}}
-			{{- end -}}
-			{{- "\n" -}}
-		{{- end -}}
-	{{- end -}}
-'
 
 # TODO something less hacky than "git archive" hackery, like a "bashbrew archive" or "bashbrew context" or something
 template='
@@ -115,9 +102,10 @@ template='
 	{{- "\n" -}}
 	{{- range $.Entries -}}
 		{{- $arch := .HasArchitecture arch | ternary arch (.Architectures | first) -}}
+		{{- /* cannot replace ArchDockerFroms with bashbrew fetch or the arch selector logic has to be duplicated 🥹*/ -}}
 		{{- $froms := $.ArchDockerFroms $arch . -}}
 		{{- $outDir := join "_" $.RepoName (.Tags | last) -}}
-		git -C "$BASHBREW_CACHE/git" archive --format=tar
+		git -C "{{ gitCache }}" archive --format=tar
 		{{- " " -}}
 		{{- "--prefix=" -}}
 		{{- $outDir -}}
@@ -128,41 +116,133 @@ template='
 		{{- $dir := .ArchDirectory $arch -}}
 		{{- (eq $dir ".") | ternary "" $dir -}}
 		{{- "\n" -}}
-		mkdir -p "$tempDir/{{- $outDir -}}" && echo "{{- .ArchFile $arch -}}" > "$tempDir/{{- $outDir -}}/.bashbrew-dockerfile-name"
+		mkdir -p "$tempDir/{{- $outDir -}}" && echo "{{- .ArchBuilder $arch -}}" > "$tempDir/{{- $outDir -}}/.bashbrew-builder" && echo "{{- .ArchFile $arch -}}" > "$tempDir/{{- $outDir -}}/.bashbrew-file"
 		{{- "\n" -}}
 	{{- end -}}
 	tar -cC "$tempDir" . && rm -rf "$tempDir"
 '
 
+_tar-t() {
+	tar -t "$@" \
+		| grep -vE "$uninterestingTarballGrep" \
+		| sed -e 's!^[.]/!!' \
+			-r \
+			-e 's!([/.-]|^)((lib)?(c?python|py)-?)[0-9]+([.][0-9]+)?([/.-]|$)!\1\2XXX\6!g' \
+		| sort
+}
+
+_jq() {
+	if [ "$#" -eq 0 ]; then
+		set -- '.'
+	fi
+	jq --tab -S "$@"
+}
+
 copy-tar() {
 	local src="$1"; shift
 	local dst="$1"; shift
 
-	if [ "$allFiles" ]; then
+	if [ -n "$allFiles" ]; then
 		mkdir -p "$dst"
 		cp -al "$src"/*/ "$dst/"
 		return
 	fi
 
-	local d dockerfiles=()
-	for d in "$src"/*/.bashbrew-dockerfile-name; do
-		local bf="$(< "$d")" dDir="$(dirname "$d")"
-		dockerfiles+=( "$dDir/$bf" )
-		if [ "$bf" = 'Dockerfile' ]; then
-			# if "Dockerfile.builder" exists, let's check that too (busybox, hello-world)
-			if [ -f "$dDir/$bf.builder" ]; then
-				dockerfiles+=( "$dDir/$bf.builder" )
+	local d indexes=() dockerfiles=()
+	for d in "$src"/*/.bashbrew-file; do
+		[ -f "$d" ] || continue
+		local bf; bf="$(< "$d")"
+		local dDir; dDir="$(dirname "$d")"
+		local builder; builder="$(< "$dDir/.bashbrew-builder")"
+		if [ "$builder" = 'oci-import' ]; then
+			indexes+=( "$dDir/$bf" )
+		else
+			dockerfiles+=( "$dDir/$bf" )
+			if [ "$bf" = 'Dockerfile' ]; then
+				# if "Dockerfile.builder" exists, let's check that too (busybox, hello-world)
+				if [ -f "$dDir/$bf.builder" ]; then
+					dockerfiles+=( "$dDir/$bf.builder" )
+				fi
 			fi
 		fi
-		rm "$d" # remove the ".bashbrew-dockerfile-name" file we created
+		rm "$d" "$dDir/.bashbrew-builder" # remove the ".bashbrew-*" files we created
+	done
+
+	# now that we're done with our globbing needs, let's disable globbing so it doesn't give us wrong answers
+	local -
+	set -o noglob
+
+	for i in "${indexes[@]}"; do
+		local iName; iName="$(basename "$i")"
+		local iDir; iDir="$(dirname "$i")"
+		local iDirName; iDirName="$(basename "$iDir")"
+		local iDst="$dst/$iDirName"
+
+		mkdir -p "$iDst"
+
+		_jq . "$i" > "$iDst/$iName"
+
+		local digest
+		digest="$(jq -r --arg name "$iName" '
+			if $name == "index.json" then
+				.manifests[0].digest
+			else
+				.digest
+			end
+		' "$i")"
+
+		local blob="blobs/${digest//://}"
+		local blobDir; blobDir="$(dirname "$blob")"
+		local manifest="$iDir/$blob"
+		mkdir -p "$iDst/$blobDir"
+		_jq . "$manifest" > "$iDst/$blob"
+
+		local configDigest; configDigest="$(jq -r '.config.digest' "$manifest")"
+		local blob="blobs/${configDigest//://}"
+		local blobDir; blobDir="$(dirname "$blob")"
+		local config="$iDir/$blob"
+		mkdir -p "$iDst/$blobDir"
+		_jq . "$config" > "$iDst/$blob"
+
+		local layers
+		layers="$(jq -r '[ .layers[].digest | @sh ] | join(" ")' "$manifest")"
+		eval "layers=( $layers )"
+		local layerDigest
+		for layerDigest in "${layers[@]}"; do
+			local blob="blobs/${layerDigest//://}"
+			local blobDir; blobDir="$(dirname "$blob")"
+			local layer="$iDir/$blob"
+			mkdir -p "$iDst/$blobDir"
+			_tar-t -f "$layer" > "$iDst/$blob  'tar -t'"
+		done
 	done
 
 	for d in "${dockerfiles[@]}"; do
 		local dDir; dDir="$(dirname "$d")"
 		local dDirName; dDirName="$(basename "$dDir")"
 
+		# TODO choke on "syntax" parser directive
+		# TODO handle "escape" parser directive reasonably
+		local flatDockerfile; flatDockerfile="$(
+			gawk '
+				BEGIN { line = "" }
+				/^[[:space:]]*#/ {
+					gsub(/^[[:space:]]+/, "")
+					print
+					next
+				}
+				{
+					if (match($0, /^(.*)(\\[[:space:]]*)$/, m)) {
+						line = line m[1]
+						next
+					}
+					print line $0
+					line = ""
+				}
+			' "$d"
+		)"
+
 		local IFS=$'\n'
-		local dBase; dBase="$(basename "$d")"
 		local copyAddContext; copyAddContext="$(awk '
 			toupper($1) == "COPY" || toupper($1) == "ADD" {
 				for (i = 2; i < NF; i++) {
@@ -174,7 +254,8 @@ copy-tar() {
 					}
 				}
 			}
-		' "$d")"
+		' <<<"$flatDockerfile")"
+		local dBase; dBase="$(basename "$d")"
 		local files=(
 			"$dBase"
 			$copyAddContext
@@ -205,29 +286,30 @@ copy-tar() {
 			# "find: warning: -path ./xxx/ will not match anything because it ends with /."
 			local findGlobbedPath="${f%/}"
 			findGlobbedPath="${findGlobbedPath#./}"
-			globbed=( $(cd "$dDir" && find -path "./$findGlobbedPath") )
+			local globbedStr; globbedStr="$(cd "$dDir" && find -path "./$findGlobbedPath")"
+			local -a globbed=( $globbedStr )
 			if [ "${#globbed[@]}" -eq 0 ]; then
 				globbed=( "$f" )
 			fi
 
 			local g
 			for g in "${globbed[@]}"; do
-				if [ -z "$failureMatters" ] && [ ! -e "$dDir/$g" ]; then
+				local srcG="$dDir/$g" dstG="$dst/$dDirName/$g"
+
+				if [ -z "$failureMatters" ] && [ ! -e "$srcG" ]; then
 					continue
 				fi
 
-				local gDir; gDir="$(dirname "$dst/$dDirName/$g")"
+				local gDir; gDir="$(dirname "$dstG")"
 				mkdir -p "$gDir"
-				cp -alT "$dDir/$g" "$dst/$dDirName/$g"
+				cp -alT "$srcG" "$dstG"
 
-				if [ "$listTarballContents" ]; then
+				if [ -n "$listTarballContents" ]; then
 					case "$g" in
-						*.tar.*|*.tgz)
-							tar -tf "$dst/$dDirName/$g" \
-								| grep -vE "$uninterestingTarballGrep" \
-								| sed -e 's!^[.]/!!' \
-								| sort \
-								> "$dst/$dDirName/$g  'tar -t'"
+						*.tar.* | *.tgz)
+							if [ -s "$dstG" ]; then
+								_tar-t -f "$dstG" > "$dstG  'tar -t'"
+							fi
 							;;
 					esac
 				fi
@@ -236,36 +318,95 @@ copy-tar() {
 	done
 }
 
-mkdir temp
-git -C temp init --quiet
-git -C temp config user.name 'Bogus'
-git -C temp config user.email 'bogus@bogus'
+# a "bashbrew cat" template that gives us the last / "least specific" tags for the arguments
+# (in other words, this is "bashbrew list --uniq" but last instead of first)
+templateLastTags='
+	{{- range .TagEntries -}}
+		{{- $.RepoName -}}
+		{{- ":" -}}
+		{{- .Tags | last -}}
+		{{- "\n" -}}
+	{{- end -}}
+'
 
-bashbrew list "${images[@]}" | sort -uV > temp/_bashbrew-list || :
-bashbrew cat --format "$archesListTemplate" "${images[@]}" | sort -V > temp/_bashbrew-arches || :
-bashbrew cat --format "$sharedTagsListTemplate" "${images[@]}" | grep -vE '^$' | sort -V > temp/_bashbrew-shared-tags || :
-for image in "${images[@]}"; do
-	if script="$(bashbrew cat -f "$template" "$image")"; then
+_metadata-files() {
+	if [ "$#" -gt 0 ]; then
+		bashbrew list "$@" 2>>temp/_bashbrew.err | sort -uV > temp/_bashbrew-list || :
+
+		bashbrew cat --format '{{ range .Entries }}{{ range .Architectures }}{{ . }}{{ "\n" }}{{ end }}{{ end }}' "$@" 2>>temp/_bashbrew.err | sort -u > temp/_bashbrew-arches || :
+
+		"$diffDir/_bashbrew-cat-sorted.sh" "$@" 2>>temp/_bashbrew.err > temp/_bashbrew-cat || :
+
+		bashbrew cat --format "$templateLastTags" "$@" \
+			| sort -V \
+			| xargs -r bashbrew list --uniq --build-order 2>>temp/_bashbrew.err \
+			| xargs -r bashbrew cat --format "$templateLastTags" 2>>temp/_bashbrew.err \
+			> temp/_bashbrew-list-build-order || :
+
+		# oci images can't be fetched with ArchDockerFroms
+		# todo: use each first arch instead of current arch
+		bashbrew fetch --arch-filter "$@"
+		script="$(bashbrew cat --format "$template" "$@")"
 		mkdir tar
 		( eval "$script" | tar -xiC tar )
 		copy-tar tar temp
 		rm -rf tar
 	fi
-done
+
+	if [ -n "$externalPins" ] && command -v crane &> /dev/null; then
+		local file
+		for file in $externalPins; do
+			[ -e "oi/$file" ] || continue
+			local pin digest dir
+			pin="$("$diffDir/.external-pins/tag.sh" "$file")"
+			digest="$(< "oi/$file")"
+			dir="temp/$file"
+			mkdir -p "$dir"
+			bashbrew remote arches --json "$pin@$digest" | _jq > "$dir/bashbrew.json"
+			local manifests manifest
+			manifests="$(jq -r '
+				[ (
+					.arches
+					| if has(env.BASHBREW_ARCH) then
+						.[env.BASHBREW_ARCH]
+					else
+						.[keys_unsorted | first]
+					end
+				)[].digest | @sh ]
+				| join(" ")
+			' "$dir/bashbrew.json")"
+			eval "manifests=( $manifests )"
+			for manifest in "${manifests[@]}"; do
+				crane manifest "$pin@$manifest" | _jq > "$dir/manifest-${manifest//:/_}.json"
+				local config
+				config="$(jq -r '.config.digest' "$dir/manifest-${manifest//:/_}.json")"
+				crane blob "$pin@$config" | _jq > "$dir/manifest-${manifest//:/_}-config.json"
+			done
+		done
+	fi
+}
+
+mkdir temp
+git -C temp init --quiet
+git -C temp config user.name 'Bogus'
+git -C temp config user.email 'bogus@bogus'
+
+# handle "new-image" PRs gracefully
+for img; do touch "$BASHBREW_LIBRARY/$img"; [ -s "$BASHBREW_LIBRARY/$img" ] || echo 'Maintainers: New Image! :D (@docker-library-bot)' > "$BASHBREW_LIBRARY/$img"; done
+
+_metadata-files "$@"
 git -C temp add . || :
 git -C temp commit --quiet --allow-empty -m 'initial' || :
 
+git -C oi clean --quiet --force
 git -C oi checkout --quiet pull
 
+# handle "deleted-image" PRs gracefully :(
+for img; do touch "$BASHBREW_LIBRARY/$img"; [ -s "$BASHBREW_LIBRARY/$img" ] || echo 'Maintainers: Deleted Image D: (@docker-library-bot)' > "$BASHBREW_LIBRARY/$img"; done
+
 git -C temp rm --quiet -rf . || :
-bashbrew list "${images[@]}" | sort -uV > temp/_bashbrew-list || :
-bashbrew cat --format "$archesListTemplate" "${images[@]}" | sort -V > temp/_bashbrew-arches || :
-bashbrew cat --format "$sharedTagsListTemplate" "${images[@]}" | grep -vE '^$' | sort -V > temp/_bashbrew-shared-tags || :
-script="$(bashbrew cat -f "$template" "${images[@]}")"
-mkdir tar
-( eval "$script" | tar -xiC tar )
-copy-tar tar temp
-rm -rf tar
+
+_metadata-files "$@"
 git -C temp add .
 
 git -C temp diff \

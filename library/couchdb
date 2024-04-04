@@ -1,16 +1,25 @@
 # see https://couchdb.apache.org/
 # also the announce@couchdb.apache.org mailing list
 
-Maintainers: Joan Touzet <wohali@apache.org> (@wohali)
+Maintainers: Joan Touzet <wohali@apache.org> (@wohali), Jan Lehnardt <jan@apache.org> (@janl), Nick Vatamaniuc (@nickva)
 GitRepo: https://github.com/apache/couchdb-docker
-GitCommit: f56c425bb7d64918a57936376e0070e7742768cd
+GitFetch: refs/heads/main
+GitCommit: 58910ed097489dc588b2a87592406f8faa1bdadf
 
-Tags: latest, 3.0.0, 3.0, 3
-Architectures: amd64, arm64v8, ppc64le
-Directory: 3.0.0
+Tags: latest, 3.3.3, 3.3, 3
+Architectures: amd64, arm64v8, ppc64le, s390x
+Directory: 3.3.3
+
+Tags: 3.2.3, 3.2
+Architectures: amd64
+Directory: 3.2.3
+
+Tags: 3.1.2, 3.1
+Architectures: amd64, arm64v8
+Directory: 3.1.2
 
 Tags: 2.3.1, 2.3, 2
-Architectures: amd64, arm64v8, ppc64le
+Architectures: amd64, arm64v8
 Directory: 2.3.1
 
 # 1.x is no longer supported by the Apache CouchDB team.

@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-: "${BASHBREW_CACHE:=$HOME/.cache/bashbrew}"
-export BASHBREW_CACHE BASHBREW_ARCH=
-
-if [ ! -d "$BASHBREW_CACHE/git" ]; then
-	# initialize the "bashbrew cache"
-	bashbrew --arch amd64 from --uniq --apply-constraints hello-world:linux > /dev/null
-fi
+export BASHBREW_ARCH=
 
 if [ "$#" -eq 0 ]; then
 	set -- '--all'
@@ -74,7 +68,7 @@ declare -A allNaughty=(
 	#[img:tag]=1
 )
 
-tags="$(bashbrew list --uniq "$@" | sort -u)"
+tags="$(bashbrew --namespace '' list --uniq "$@" | sort -u)"
 for img in $tags; do
 	arches="$(_arches "$img")"
 	constraints="$(bashbrew cat --format '{{ .TagEntry.Constraints | join "\n" }}' "$img" | sort -u)"
@@ -83,23 +77,7 @@ for img in $tags; do
 	for BASHBREW_ARCH in $arches; do
 		export BASHBREW_ARCH
 
-		if ! froms="$(_froms "$img" 2>/dev/null)"; then
-			# if we can't fetch the tags from their real locations, let's try the warehouse
-			refsList="$(
-				bashbrew list --uniq "$img" \
-				| sed \
-					-e 's!:!/!' \
-					-e "s!^!refs/tags/$BASHBREW_ARCH/!" \
-					-e 's!$!:!'
-			)"
-			[ -n "$refsList" ]
-			git -C "$BASHBREW_CACHE/git" \
-				fetch --no-tags --quiet \
-				https://github.com/docker-library/commit-warehouse.git \
-				$refsList
-			froms="$(_froms "$img")"
-		fi
-
+		froms="$(_froms "$img")"
 		[ -n "$froms" ] # rough sanity check
 
 		allExpected=
@@ -112,10 +90,6 @@ for img in $tags; do
 			imgMissing[$from]+=$'\n'"$missing"
 		fi
 		extra="$(comm -23 <(echo "$constraints") <(echo "$allExpected"))"
-		if [ "$from" = 'scratch' ]; then
-			# if a given image is "FROM scratch", then consider "!aufs" an acceptable constraint that doesn't show
-			extra="$(grep -vE '^!aufs$' <<<"$extra" || :)"
-		fi
 		if [ -n "$extra" ]; then
 			imgExtra[$from]+=$'\n'"$extra"
 		fi

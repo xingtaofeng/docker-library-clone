@@ -1,57 +1,67 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-: "${BASHBREW_CACHE:=$HOME/.cache/bashbrew}"
-export BASHBREW_CACHE BASHBREW_ARCH=
-
-if [ ! -d "$BASHBREW_CACHE/git" ]; then
-	# initialize the "bashbrew cache"
-	bashbrew --arch amd64 from --uniq --apply-constraints hello-world:linux > /dev/null
-fi
+export BASHBREW_ARCH=
 
 if [ "$#" -eq 0 ]; then
 	set -- '--all'
 fi
 
+externalPinsDir="$(dirname "$BASH_SOURCE")/.external-pins"
+declare -A externalPinsArchesCache=(
+	#[img:tag]='["arch","arch",...]' # (json array of strings)
+)
 _is_naughty() {
 	local from="$1"; shift
 
-	case "$BASHBREW_ARCH=$from" in
-		# a few images that no longer exist (and are thus not permissible)
-		# https://techcommunity.microsoft.com/t5/Containers/Removing-the-latest-Tag-An-Update-on-MCR/ba-p/393045
-		*=mcr.microsoft.com/windows/*:latest \
-		) return 0 ;;
-		# https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/base-image-lifecycle
-		# "11/12/2019"
-		*=mcr.microsoft.com/windows/*:1803* \
-		) return 0 ;;
-		# https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/base-image-lifecycle
-		# "04/09/2019"
-		*=mcr.microsoft.com/windows/*:1709* \
-		) return 0 ;;
-		# https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/base-image-lifecycle
-		# "10/09/2018"
-		*=mcr.microsoft.com/windows/nanoserver:sac2016 \
-		) return 0 ;;
+	case "$from" in
+		# "scratch" isn't a real image and is always permissible (on non-Windows)
+		scratch)
+			case "$BASHBREW_ARCH" in
+				windows-*) return 0 ;; # can't use "FROM scratch" on Windows
+				*)         return 1 ;; # can use "FROM scratch" everywhere else
+			esac
+			;;
 
-		# a few explicitly permissible exceptions to Santa's naughty list
-		*=scratch \
-		| amd64=docker.elastic.co/elasticsearch/elasticsearch:* \
-		| amd64=docker.elastic.co/kibana/kibana:* \
-		| amd64=docker.elastic.co/logstash/logstash:* \
-		| windows-*=mcr.microsoft.com/windows/nanoserver:* \
-		| windows-*=mcr.microsoft.com/windows/servercore:* \
-		) return 1 ;;
-
-		# "x/y" and not an approved exception
-		*/*) return 0 ;;
+		*/*)
+			# must be external, let's check our pins for acceptability
+			local externalPinFile="$externalPinsDir/${from/:/___}" # see ".external-pins/list.sh"
+			if [ -s "$externalPinFile" ]; then
+				local digest
+				digest="$(< "$externalPinFile")"
+				from+="@$digest"
+			else
+				# not pinned, must not be acceptable
+				return 0
+			fi
+			;;
 	esac
 
-	# must be some other official image AND support our current architecture
-	local archSupported
-	if archSupported="$(bashbrew cat --format '{{ .TagEntry.HasArchitecture arch | ternary arch "" }}' "$from")" && [ -n "$archSupported" ]; then
-		return 1
-	fi
+	case "$from" in
+		*/*@sha256:*)
+			if [ -z "${externalPinsArchesCache["$from"]:-}" ]; then
+				local remoteArches
+				if remoteArches="$(bashbrew remote arches --json "$from" | jq -c '.arches | keys')"; then
+					externalPinsArchesCache["$from"]="$remoteArches"
+				else
+					echo >&2 "warning: failed to query supported architectures of '$from'"
+					externalPinsArchesCache["$from"]='[]'
+				fi
+			fi
+			if jq <<<"${externalPinsArchesCache["$from"]}" -e 'index(env.BASHBREW_ARCH)' > /dev/null; then
+				# hooray, a supported architecture!
+				return 1
+			fi
+			;;
+
+		*)
+			# must be some other official image AND support our current architecture
+			local archSupported
+			if archSupported="$(bashbrew cat --format '{{ .TagEntry.HasArchitecture arch | ternary arch "" }}' "$from")" && [ -n "$archSupported" ]; then
+				return 1
+			fi
+			;;
+	esac
 
 	return 0
 }
@@ -82,30 +92,14 @@ declare -A allNaughty=(
 	#[img:tag]=1
 )
 
-tags="$(bashbrew list --uniq "$@" | sort -u)"
+tags="$(bashbrew --namespace '' list --uniq "$@" | sort -u)"
 for img in $tags; do
 	arches="$(_arches "$img")"
 	hasNice= # do we have _any_ arches that aren't naughty? (so we can make the message better if not)
 	for BASHBREW_ARCH in $arches; do
 		export BASHBREW_ARCH
 
-		if ! froms="$(_froms "$img" 2>/dev/null)"; then
-			# if we can't fetch the tags from their real locations, let's try the warehouse
-			refsList="$(
-				bashbrew list --uniq "$img" \
-				| sed \
-					-e 's!:!/!' \
-					-e "s!^!refs/tags/$BASHBREW_ARCH/!" \
-					-e 's!$!:!'
-			)"
-			[ -n "$refsList" ]
-			git -C "$BASHBREW_CACHE/git" \
-				fetch --no-tags --quiet \
-				https://github.com/docker-library/commit-warehouse.git \
-				$refsList
-			froms="$(_froms "$img")"
-		fi
-
+		froms="$(_froms "$img")"
 		[ -n "$froms" ] # rough sanity check
 
 		for from in $froms; do

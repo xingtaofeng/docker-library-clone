@@ -1,10 +1,10 @@
 Maintainers: Alexey Sokolov <alexey+znc@asokolov.org> (@DarthGandalf)
 GitRepo: https://github.com/znc/znc-docker.git
-GitCommit: 8549b62a7e44cb6c2d1fde3839461ceddebac15d
+GitCommit: 8638ba43acaef4bff2d4d39668c1992f411230a6
 Architectures: amd64, arm32v6, arm64v8
 
-Tags: 1.7.5, 1.7, latest
+Tags: 1.9.0, 1.9, latest
 Directory: full
 
-Tags: 1.7.5-slim, 1.7-slim, slim
+Tags: 1.9.0-slim, 1.9-slim, slim
 Directory: slim

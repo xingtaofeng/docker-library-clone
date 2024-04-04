@@ -1,18 +1,24 @@
-Maintainers: Jérémy Jacquier-Roux <jeremy.jacquier-roux@bonitasoft.org> (@JeremJR),
-             Truc Nguyen <truc.nguyen@bonitasoft.org> (@tnguyen1),
-             Laurent Leseigneur <laurent.leseigneur@bonitasoft.org> (@laurentleseigneur),
-             Baptiste Mesta <baptiste.mesta@bonitasoft.org> (@baptistemesta),
-             Danila Mazour <danila.mazour@bonitasoft.org> (@danila-m),
+Maintainers: Danila Mazour <danila.mazour@bonitasoft.org> (@danila-m),
              Emmanuel Duchastenier <emmanuel.duchastenier@bonitasoft.org> (@educhastenier),
-             Pascal Garcia <pascal.garcia@bonitasoft.org> (@passga)
-GitRepo: https://github.com/Bonitasoft-Community/docker_bonita.git
-
-Tags: 7.9.4, 7.9
+             Pascal Garcia <pascal.garcia@bonitasoft.org> (@passga),
+             Anthony Birembaut <anthony.birembaut@bonitasoft.org> (@abirembaut),
+             Romain Bioteau <romain.bioteau@bonitasoft.org> (@rbioteau)
 Architectures: amd64, arm64v8, ppc64le
-GitCommit: 4ce826e88b107ab685c4df72af1960dda68890f1
-Directory: 7.9
+GitRepo: https://github.com/bonitasoft/bonita-distrib.git
+Directory: docker
 
-Tags: 7.10.1, 7.10, latest
-Architectures: amd64, arm64v8, ppc64le
-GitCommit: e03cc6efc2e54edf11f36805502258df3d05e5a7
-Directory: 7.10
+Tags: 2022.1-u0, 2022.1, 7.14.0, 7.14
+GitFetch: refs/heads/docker/2022.1
+GitCommit: 4cdeb1c385b981e7074ce19cc685c08028d7149d
+
+Tags: 2022.2-u0, 2022.2, 7.15.0, 7.15
+GitFetch: refs/heads/docker/2022.2
+GitCommit: 607a6a3885df35979e0946611af4f7c858f9c989
+
+Tags: 2023.1-u0, 2023.1, 8.0.0, 8.0
+GitFetch: refs/heads/docker/2023.1
+GitCommit: 814cc8cc0a6e8b02c827cb1dfeabb1bb4569a865
+
+Tags: 2023.2-u0, 2023.2, 9.0.0, 9.0, latest
+GitFetch: refs/heads/docker/2023.2
+GitCommit: a8f0abf47fa8f7b96cb010e7d80b032ae96720ca

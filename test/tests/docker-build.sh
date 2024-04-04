@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # wrapper around "docker build" that creates a temporary directory and copies files into it first so that arbitrary host directories can be copied into containers without bind mounts, but accepts a Dockerfile on stdin
@@ -18,7 +18,7 @@ dir="$1"; shift
 
 imageTag="$1"; shift
 
-tmp="$(mktemp -t -d docker-library-test-build-XXXXXXXXXX)"
+tmp="$(mktemp -d "${TMPDIR:-/tmp}/docker-library-test-build-XXXXXXXXXX")"
 trap "rm -rf '$tmp'" EXIT
 
 cat > "$tmp/Dockerfile"
@@ -30,4 +30,4 @@ fi
 
 cp -RL "$dir" "$tmp/dir"
 
-docker build -t "$imageTag" "$tmp" > /dev/null
+error="$(command docker build -t "$imageTag" "$tmp" 2>&1)" || { echo "$error" >&2; exit 1; }

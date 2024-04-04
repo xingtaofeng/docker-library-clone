@@ -1,14 +1,15 @@
-# this file is generated via https://github.com/TimWolla/docker-spiped/blob/bbdc0d01ce890ae6f67c747814f8039bcdf02fa1/generate-stackbrew-library.sh
+# this file is generated via https://github.com/TimWolla/docker-spiped/blob/f1f01eb79a88ece779c33acdd75ca29c879cac63/generate-stackbrew-library.sh
 
 Maintainers: Tim Düsterhus <tim@bastelstu.be> (@TimWolla)
 GitRepo: https://github.com/TimWolla/docker-spiped.git
+GitFetch: refs/heads/main
 
-Tags: 1.6.0, 1.6, 1, latest
-Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: b813c31745a94587dcdef8611fe84be2e266cb1b
+Tags: 1.6.2, 1.6, 1, latest
+Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, mips64le, ppc64le, s390x
+GitCommit: 734961b7d2f6977c52a4136def06bf2f92d905d4
 Directory: 1.6
 
-Tags: 1.6.0-alpine, 1.6-alpine, 1-alpine, alpine
+Tags: 1.6.2-alpine, 1.6-alpine, 1-alpine, alpine
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: 6b9b45b3bc78f5f41758df56357552a0f4808c5e
+GitCommit: c967076534a8ccdac377a6f02c332d0e181c85aa
 Directory: 1.6/alpine

@@ -1,13 +1,14 @@
-# this file is generated via https://github.com/docker-library/logstash/blob/18d3da965bb702a12edd9d387afd16bd965c5b1c/generate-stackbrew-library.sh
+Maintainers: João Duarte (@jsvd)
+GitRepo: https://github.com/elastic/dockerfiles.git
+Directory: logstash
+Builder: buildkit
 
-Maintainers: Tianon Gravi <admwiggin@gmail.com> (@tianon),
-             Joseph Ferguson <yosifkit@gmail.com> (@yosifkit)
-GitRepo: https://github.com/docker-library/logstash.git
+Tags: 8.13.0
+Architectures: amd64, arm64v8
+GitFetch: refs/heads/8.13
+GitCommit: 4269a02cf8a56844db30e5e74b23087840ee6fcb
 
-Tags: 7.6.1
-GitCommit: 1bd7995602e94f42da8a650f7330056fd1c2cae8
-Directory: 7
-
-Tags: 6.8.7
-GitCommit: 16ffef2618cc8407b7f482937395da8a0553740d
-Directory: 6
+Tags: 7.17.19
+Architectures: amd64, arm64v8
+GitFetch: refs/heads/7.17
+GitCommit: e6eabbb45f3729cefacf138e418aaa12a541741b

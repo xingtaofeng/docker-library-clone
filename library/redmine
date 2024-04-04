@@ -1,44 +1,25 @@
-# this file is generated via https://github.com/docker-library/redmine/blob/fe32a0b56f5eacae086030de5e0ca19ea026b51b/generate-stackbrew-library.sh
+# this file is generated via https://github.com/docker-library/redmine/blob/16d3e00e73ce4ab0173b931f04dce5117d696211/generate-stackbrew-library.sh
 
 Maintainers: Tianon Gravi <admwiggin@gmail.com> (@tianon),
              Joseph Ferguson <yosifkit@gmail.com> (@yosifkit)
 GitRepo: https://github.com/docker-library/redmine.git
 
-Tags: 4.1.0, 4.1, 4, latest
-Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: 70464369bab365babb4e955415254b1fca064e92
-Directory: 4.1
+Tags: 5.1.2, 5.1, 5, latest, 5.1.2-bookworm, 5.1-bookworm, 5-bookworm, bookworm
+Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, mips64le, ppc64le, s390x
+GitCommit: 51b7921366b46e2dd5a7f9629b933a3e7a68fdb1
+Directory: 5.1/bookworm
 
-Tags: 4.1.0-passenger, 4.1-passenger, 4-passenger, passenger
-GitCommit: fe32a0b56f5eacae086030de5e0ca19ea026b51b
-Directory: 4.1/passenger
+Tags: 5.1.2-alpine3.18, 5.1-alpine3.18, 5-alpine3.18, alpine3.18, 5.1.2-alpine, 5.1-alpine, 5-alpine, alpine
+Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
+GitCommit: 51b7921366b46e2dd5a7f9629b933a3e7a68fdb1
+Directory: 5.1/alpine3.18
 
-Tags: 4.1.0-alpine, 4.1-alpine, 4-alpine, alpine
-GitCommit: 70464369bab365babb4e955415254b1fca064e92
-Directory: 4.1/alpine
+Tags: 5.0.8, 5.0, 5.0.8-bookworm, 5.0-bookworm
+Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, mips64le, ppc64le, s390x
+GitCommit: a47825ab3251935beedb9d83ecdc80e78d1ccf28
+Directory: 5.0/bookworm
 
-Tags: 4.0.6, 4.0
-Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: 70464369bab365babb4e955415254b1fca064e92
-Directory: 4.0
-
-Tags: 4.0.6-passenger, 4.0-passenger
-GitCommit: fd5541e76d7f2230484c19a784b8f9ee884559ce
-Directory: 4.0/passenger
-
-Tags: 4.0.6-alpine, 4.0-alpine
-GitCommit: 70464369bab365babb4e955415254b1fca064e92
-Directory: 4.0/alpine
-
-Tags: 3.4.13, 3.4, 3
-Architectures: amd64, arm32v5, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: 70464369bab365babb4e955415254b1fca064e92
-Directory: 3.4
-
-Tags: 3.4.13-passenger, 3.4-passenger, 3-passenger
-GitCommit: fd5541e76d7f2230484c19a784b8f9ee884559ce
-Directory: 3.4/passenger
-
-Tags: 3.4.13-alpine, 3.4-alpine, 3-alpine
-GitCommit: 70464369bab365babb4e955415254b1fca064e92
-Directory: 3.4/alpine
+Tags: 5.0.8-alpine3.18, 5.0-alpine3.18, 5.0.8-alpine, 5.0-alpine
+Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
+GitCommit: a47825ab3251935beedb9d83ecdc80e78d1ccf28
+Directory: 5.0/alpine3.18

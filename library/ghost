@@ -1,35 +1,16 @@
-# this file is generated via https://github.com/docker-library/ghost/blob/0779a673aaa5c23e104247292105f13448a49517/generate-stackbrew-library.sh
+# this file is generated via https://github.com/docker-library/ghost/blob/ded836149ec5086738eaba49d4c5c31568e8a466/generate-stackbrew-library.sh
 
 Maintainers: Tianon Gravi <admwiggin@gmail.com> (@tianon),
-             Joseph Ferguson <yosifkit@gmail.com> (@yosifkit)
+             Joseph Ferguson <yosifkit@gmail.com> (@yosifkit),
+             Austin Burdine <austin@acburdine.me> (@acburdine)
 GitRepo: https://github.com/docker-library/ghost.git
 
-Tags: 3.10.0, 3.10, 3, latest
+Tags: 5.81.1, 5.81, 5, latest
 Architectures: amd64, arm32v7, arm64v8, ppc64le, s390x
-GitCommit: 8d0c502c028c47f28b9038d555d016e9f3b1adca
-Directory: 3/debian
+GitCommit: 81b224e36c638a8864a1bc4ba952e84de0ae29cb
+Directory: 5/debian
 
-Tags: 3.10.0-alpine, 3.10-alpine, 3-alpine, alpine
-Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: 8d0c502c028c47f28b9038d555d016e9f3b1adca
-Directory: 3/alpine
-
-Tags: 2.38.0, 2.38, 2
-Architectures: amd64, arm32v7, arm64v8, ppc64le, s390x
-GitCommit: aeed5c9122e22c71f321c36f11f8794b3915dce5
-Directory: 2/debian
-
-Tags: 2.38.0-alpine, 2.38-alpine, 2-alpine
-Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: aeed5c9122e22c71f321c36f11f8794b3915dce5
-Directory: 2/alpine
-
-Tags: 1.26.2, 1.26, 1
-Architectures: amd64, arm32v7, arm64v8, ppc64le, s390x
-GitCommit: aeed5c9122e22c71f321c36f11f8794b3915dce5
-Directory: 1/debian
-
-Tags: 1.26.2-alpine, 1.26-alpine, 1-alpine
-Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: aeed5c9122e22c71f321c36f11f8794b3915dce5
-Directory: 1/alpine
+Tags: 5.81.1-alpine, 5.81-alpine, 5-alpine, alpine
+Architectures: amd64, arm32v6, arm32v7, arm64v8
+GitCommit: 81b224e36c638a8864a1bc4ba952e84de0ae29cb
+Directory: 5/alpine

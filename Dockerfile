@@ -1,4 +1,5 @@
-FROM tianon/docker-tianon
+# FYI, this base image is built via ".github/workflows/.bashbrew/action.yml" (from https://github.com/docker-library/bashbrew/tree/master/Dockerfile)
+FROM oisupport/bashbrew:base
 
 RUN set -eux; \
 	apt-get update; \
@@ -8,38 +9,22 @@ RUN set -eux; \
 		wget \
 # git for cloning source code
 		git \
-	; \
-# go for compiling bashbrew (backports to get new enough version and to make it work on s390x)
-	suite="$(awk '$1 == "deb" && $4 == "main" && $3 !~ /[\/-]/ { print $3; exit }' /etc/apt/sources.list)"; \
-	echo "deb http://deb.debian.org/debian $suite-backports main" > /etc/apt/sources.list.d/backports.list; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends -t "$suite-backports" \
-		golang-go \
+# gawk for diff-pr.sh
+		gawk \
+# tar -tf in diff-pr.sh
+		bzip2 \
+# jq for diff-pr.sh
+		jq \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
-ENV GOPATH /go
-ENV PATH $GOPATH/bin:$PATH
-
 ENV DIR /usr/src/official-images
-ENV PATH $DIR/bashbrew/go/bin:$PATH
-
 ENV BASHBREW_LIBRARY $DIR/library
-ENV BASHBREW_CACHE /bashbrew-cache
 
-# make sure our default cache dir exists and is writable by anyone (similar to /tmp)
-RUN mkdir -p "$BASHBREW_CACHE" \
-	&& chmod 1777 "$BASHBREW_CACHE"
-# (this allows us to decide at runtime the exact uid/gid we'd like to run as)
+# crane for diff-pr.sh
+# https://gcr.io/go-containerregistry/crane:latest
+# https://explore.ggcr.dev/?image=gcr.io/go-containerregistry/crane:latest
+COPY --from=gcr.io/go-containerregistry/crane@sha256:d0e5cc313e7388a573bb4cfb980a935bb740c5787df7d90f7066b8e8146455ed /ko-app/crane /usr/local/bin/
 
 WORKDIR $DIR
 COPY . $DIR
-
-RUN set -eux; \
-	CGO_ENABLED=0 ./bashbrew/bashbrew.sh --help > /dev/null; \
-	cp -vL bashbrew/go/bin/bashbrew /usr/local/bin/
-
-VOLUME $BASHBREW_CACHE
-
-RUN ln -s "$PWD/bashbrew/bashbrew-entrypoint.sh" /usr/local/bin/bashbrew-entrypoint.sh
-ENTRYPOINT ["bashbrew-entrypoint.sh"]

@@ -1,54 +1,64 @@
-# this file is generated via https://github.com/tianon/docker-bash/blob/a9c27dc3ab0927afc456dfe6032682bf6ba2992e/generate-stackbrew-library.sh
+# this file is generated via https://github.com/tianon/docker-bash/blob/a6745045c9242e54777d2af53f07524eaffbc2b9/generate-stackbrew-library.sh
 
 Maintainers: Tianon Gravi <admwiggin@gmail.com> (@tianon)
 GitRepo: https://github.com/tianon/docker-bash.git
 
-Tags: devel-20200306, devel
+Tags: devel-20240401, devel, devel-20240401-alpine3.19, devel-alpine3.19
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: f693dac1f86a1fe2459f3fa913022fa4166b2356
+GitCommit: 524f0baff9a921cf8099421f629bed6d4872cb04
 Directory: devel
 
-Tags: 5.0.16, 5.0, 5, latest
+Tags: 5.2.26, 5.2, 5, latest, 5.2.26-alpine3.19, 5.2-alpine3.19, 5-alpine3.19, alpine3.19
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: ec764fa68f8ab725332bec6e18eda174afe1cd53
+GitCommit: 3eae20ac57eaeb63ef9e438b67bfc135a948995a
+Directory: 5.2
+
+Tags: 5.1.16, 5.1, 5.1.16-alpine3.19, 5.1-alpine3.19
+Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
+GitCommit: a3f660ae2fcc3153c697520ef4e08da800578064
+Directory: 5.1
+
+Tags: 5.0.18, 5.0, 5.0.18-alpine3.19, 5.0-alpine3.19
+Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
+GitCommit: e78939e417c6efbfd55e48c80088bdbbae29fd66
 Directory: 5.0
 
-Tags: 4.4.23, 4.4, 4
+Tags: 4.4.23, 4.4, 4, 4.4.23-alpine3.19, 4.4-alpine3.19, 4-alpine3.19
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: f55ec52c6bb3a9a1b942a775f848002826b58b8a
+GitCommit: 682faa73aff031837c3d60db8666384c2ec72bba
 Directory: 4.4
 
-Tags: 4.3.48, 4.3
+Tags: 4.3.48, 4.3, 4.3.48-alpine3.19, 4.3-alpine3.19
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: f55ec52c6bb3a9a1b942a775f848002826b58b8a
+GitCommit: 0686d8b7feac5b76e8c14be9fb44b823c5a2f7ec
 Directory: 4.3
 
-Tags: 4.2.53, 4.2
+Tags: 4.2.53, 4.2, 4.2.53-alpine3.19, 4.2-alpine3.19
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: f55ec52c6bb3a9a1b942a775f848002826b58b8a
+GitCommit: b7fb84109bde6e9d78e8a1eac2a91e6f0e20226b
 Directory: 4.2
 
-Tags: 4.1.17, 4.1
+Tags: 4.1.17, 4.1, 4.1.17-alpine3.19, 4.1-alpine3.19
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: f55ec52c6bb3a9a1b942a775f848002826b58b8a
+GitCommit: 951a1e31d2dee53473893050f29259acd18dc6ae
 Directory: 4.1
 
-Tags: 4.0.44, 4.0
+Tags: 4.0.44, 4.0, 4.0.44-alpine3.19, 4.0-alpine3.19
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: f55ec52c6bb3a9a1b942a775f848002826b58b8a
+GitCommit: 9927111b47c93b0b0057077725797625980a696d
 Directory: 4.0
 
-Tags: 3.2.57, 3.2, 3
+Tags: 3.2.57, 3.2, 3, 3.2.57-alpine3.19, 3.2-alpine3.19, 3-alpine3.19
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: f55ec52c6bb3a9a1b942a775f848002826b58b8a
+GitCommit: 1a08d56b8f1ad68e669ec9ee936512e6a7606aab
 Directory: 3.2
 
-Tags: 3.1.23, 3.1
+Tags: 3.1.23, 3.1, 3.1.23-alpine3.19, 3.1-alpine3.19
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: f55ec52c6bb3a9a1b942a775f848002826b58b8a
+GitCommit: 77ce8451ec601516ed8e2868bac35a5f38bb0bd3
 Directory: 3.1
 
-Tags: 3.0.22, 3.0
+Tags: 3.0.22, 3.0, 3.0.22-alpine3.19, 3.0-alpine3.19
 Architectures: amd64, arm32v6, arm32v7, arm64v8, i386, ppc64le, s390x
-GitCommit: f55ec52c6bb3a9a1b942a775f848002826b58b8a
+GitCommit: 88332b0ace10af319000ace7659aa1c1416cbce8
 Directory: 3.0

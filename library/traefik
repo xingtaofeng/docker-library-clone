@@ -1,40 +1,41 @@
-Maintainers: Emile Vauge <emile@vauge.com> (@emilevauge), Vincent Demeester <vincent@sbr.pm> (@vdemeester), Ludovic Fernandez <ludovic@containo.us> (@ldez), Julien Salleyron <julien@containo.us> (@juliens), Nicolas Mengin <nicolas@containo.us> (@nmengin), Michael Matur <michael@containo.us> (@mmatur), Damien Duportal <damien@containo.us> (@dduportal)
-GitRepo: https://github.com/containous/traefik-library-image.git
+Maintainers: Ludovic Fernandez <ludovic@traefik.io> (@ldez), Julien Salleyron <julien@traefik.io> (@juliens), Romain Tribotté <romain.tribotte@traefik.io> (@rtribotte), Michael Matur <michael@traefik.io> (@mmatur), Kevin Pollet <kevin.pollet@traefik.io> (@kevinpollet), Tom Moulard <tom.moulard@traefik.io> (@tommoulard)
 
-Tags: v2.2.0-rc1-windowsservercore-1809, 2.2.0-rc1-windowsservercore-1809, v2.2-windowsservercore-1809, 2.2-windowsservercore-1809, chevrotin-windowsservercore-1809
+Tags: v3.0.0-rc3-windowsservercore-ltsc2022, 3.0.0-rc3-windowsservercore-ltsc2022, v3.0-windowsservercore-ltsc2022, 3.0-windowsservercore-ltsc2022, beaufort-windowsservercore-ltsc2022
 Architectures: windows-amd64
-GitCommit: 92cfab77bf0b968b37b567d1816a57df74f7e69a
+GitRepo: https://github.com/traefik/traefik-library-image.git
+GitCommit: 912cc37ab2fb33dffbe653d3b98a224cdc833c48
+Directory: windows/servercore-ltsc2022
+Constraints: windowsservercore-ltsc2022
+
+Tags: v3.0.0-rc3-windowsservercore-1809, 3.0.0-rc3-windowsservercore-1809, v3.0-windowsservercore-1809, 3.0-windowsservercore-1809, beaufort-windowsservercore-1809
+Architectures: windows-amd64
+GitRepo: https://github.com/traefik/traefik-library-image.git
+GitCommit: 912cc37ab2fb33dffbe653d3b98a224cdc833c48
 Directory: windows/1809
 Constraints: windowsservercore-1809
 
-Tags: v2.2.0-rc1, 2.2.0-rc1, v2.2, 2.2, chevrotin
-Architectures: amd64, arm32v6, arm64v8
-GitCommit: 92cfab77bf0b968b37b567d1816a57df74f7e69a
+Tags: v3.0.0-rc3, 3.0.0-rc3, v3.0, 3.0, beaufort
+Architectures: amd64, arm32v6, arm64v8, ppc64le, s390x
+GitRepo: https://github.com/traefik/traefik-library-image.git
+GitCommit: 912cc37ab2fb33dffbe653d3b98a224cdc833c48
 Directory: alpine
 
-Tags: v2.1.6-windowsservercore-1809, 2.1.6-windowsservercore-1809, v2.1-windowsservercore-1809, 2.1-windowsservercore-1809, cantal-windowsservercore-1809, windowsservercore-1809
+Tags: v2.11.0-windowsservercore-ltsc2022, 2.11.0-windowsservercore-ltsc2022, v2.11-windowsservercore-ltsc2022, 2.11-windowsservercore-ltsc2022, mimolette-windowsservercore-ltsc2022, windowsservercore-ltsc2022
 Architectures: windows-amd64
-GitCommit: a1cd15373faf833121fbc5d6418d4f30c7738d88
+GitRepo: https://github.com/traefik/traefik-library-image.git
+GitCommit: fccb66b9845fc4266154377b774ac95127d38078
+Directory: windows/servercore-ltsc2022
+Constraints: windowsservercore-ltsc2022
+
+Tags: v2.11.0-windowsservercore-1809, 2.11.0-windowsservercore-1809, v2.11-windowsservercore-1809, 2.11-windowsservercore-1809, mimolette-windowsservercore-1809, windowsservercore-1809
+Architectures: windows-amd64
+GitRepo: https://github.com/traefik/traefik-library-image.git
+GitCommit: fccb66b9845fc4266154377b774ac95127d38078
 Directory: windows/1809
 Constraints: windowsservercore-1809
 
-Tags: v2.1.6, 2.1.6, v2.1, 2.1, cantal, latest
-Architectures: amd64, arm32v6, arm64v8
-GitCommit: a1cd15373faf833121fbc5d6418d4f30c7738d88
+Tags: v2.11.0, 2.11.0, v2.11, 2.11, mimolette, latest
+Architectures: amd64, arm32v6, arm64v8, ppc64le, s390x
+GitRepo: https://github.com/traefik/traefik-library-image.git
+GitCommit: fccb66b9845fc4266154377b774ac95127d38078
 Directory: alpine
-
-Tags: v1.7.21-windowsservercore-1809, 1.7.21-windowsservercore-1809, v1.7-windowsservercore-1809, 1.7-windowsservercore-1809, maroilles-windowsservercore-1809
-Architectures: windows-amd64
-GitCommit: 0b074fb72cea580612c99f057e5c1b218183bad3
-Directory: windows/1809
-Constraints: windowsservercore-1809
-
-Tags: v1.7.21-alpine, 1.7.21-alpine, v1.7-alpine, 1.7-alpine, maroilles-alpine
-Architectures: amd64, arm32v6, arm64v8
-GitCommit: 0b074fb72cea580612c99f057e5c1b218183bad3
-Directory: alpine
-
-Tags: v1.7.21, 1.7.21, v1.7, 1.7, maroilles
-Architectures: amd64, arm32v6, arm64v8
-GitCommit: 0b074fb72cea580612c99f057e5c1b218183bad3
-Directory: scratch

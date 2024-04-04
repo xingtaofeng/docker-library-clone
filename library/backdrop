@@ -1,16 +1,15 @@
 Maintainers: Mike Pirog <mike@kalabox.io> (@pirog),
              Geoff St. Pierre <serundeputy@gmail.com> (@serundeputy),
              Jen Lampton <jen+docker@jeneration.com> (@jenlampton),
-             Pol Dellaiera <pol.dellaiera@protonmail.com> (@drupol),
              Greg Netsas <greg@userfriendly.tech> (@klonos)
 GitRepo: https://github.com/backdrop-ops/backdrop-docker.git
 
-Tags: 1.13.2, 1.13, 1, 1.13.2-apache, 1.13-apache, 1-apache, apache, latest
+Tags: 1.26.1, 1.26, 1, 1.26.1-apache, 1.26-apache, 1-apache, apache, latest
 Architectures: amd64, arm64v8
-GitCommit: 1c82e369b6bf1b8ab45becda7f9f9777fe7f6a7f
+GitCommit: 95902d6610b2474ca88ff8faae40ed30e7d3318a
 Directory: 1/apache
 
-Tags: 1.13.2-fpm, 1.13-fpm, 1-fpm, fpm
+Tags: 1.26.1-fpm, 1.26-fpm, 1-fpm, fpm
 Architectures: amd64, arm64v8
-GitCommit: 1c82e369b6bf1b8ab45becda7f9f9777fe7f6a7f
+GitCommit: 95902d6610b2474ca88ff8faae40ed30e7d3318a
 Directory: 1/fpm

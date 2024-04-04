@@ -1,11 +1,53 @@
-Maintainers: Peter Salvatore <peter@psftw.com> (@psftw),
-             Christopher Biscardi <chris@christopherbiscardi.com> (@ChristopherBiscardi)
+Maintainers: Albert Krewinkel <albert+docker@tarleb.com> (@tarleb),
+             Andrei Dziahel <develop7@develop7.info> (@develop7)
 GitRepo: https://github.com/haskell/docker-haskell
 
-Tags: 8.8.3, 8.8, 8, latest
-GitCommit: c7675920a33d47aa30ff5456ee622cd61a2d62be
-Directory: 8.8
+Tags: 9.8.2-buster, 9.8-buster, 9-buster, buster, 9.8.2, 9.8, 9, latest
+Architectures: amd64, arm64v8
+GitCommit: 360d1218729e65b9a783fd30fc2d3c3b473d29ce
+Directory: 9.8/buster
 
-Tags: 8.6.5, 8.6
-GitCommit: c7675920a33d47aa30ff5456ee622cd61a2d62be
-Directory: 8.6
+Tags: 9.8.2-slim-buster, 9.8-slim-buster, 9-slim-buster, slim-buster, 9.8.2-slim, 9.8-slim, 9-slim, slim
+Architectures: amd64, arm64v8
+GitCommit: 360d1218729e65b9a783fd30fc2d3c3b473d29ce
+Directory: 9.8/slim-buster
+
+Tags: 9.6.4-buster, 9.6-buster, 9.6.4, 9.6
+Architectures: amd64, arm64v8
+GitCommit: 360d1218729e65b9a783fd30fc2d3c3b473d29ce
+Directory: 9.6/buster
+
+Tags: 9.6.4-slim-buster, 9.6-slim-buster, 9.6.4-slim, 9.6-slim
+Architectures: amd64, arm64v8
+GitCommit: 360d1218729e65b9a783fd30fc2d3c3b473d29ce
+Directory: 9.6/slim-buster
+
+Tags: 9.4.8-buster, 9.4-buster, 9.4.8, 9.4
+Architectures: amd64, arm64v8
+GitCommit: 360d1218729e65b9a783fd30fc2d3c3b473d29ce
+Directory: 9.4/buster
+
+Tags: 9.4.8-slim-buster, 9.4-slim-buster, 9.4.8-slim, 9.4-slim
+Architectures: amd64, arm64v8
+GitCommit: 360d1218729e65b9a783fd30fc2d3c3b473d29ce
+Directory: 9.4/slim-buster
+
+Tags: 9.2.8-buster, 9.2-buster, 9.2.8, 9.2
+Architectures: amd64, arm64v8
+GitCommit: 360d1218729e65b9a783fd30fc2d3c3b473d29ce
+Directory: 9.2/buster
+
+Tags: 9.2.8-slim-buster, 9.2-slim-buster, 9.2.8-slim, 9.2-slim
+Architectures: amd64, arm64v8
+GitCommit: 360d1218729e65b9a783fd30fc2d3c3b473d29ce
+Directory: 9.2/slim-buster
+
+Tags: 9.0.2-buster, 9.0-buster, 9.0.2, 9.0
+Architectures: amd64, arm64v8
+GitCommit: 360d1218729e65b9a783fd30fc2d3c3b473d29ce
+Directory: 9.0/buster
+
+Tags: 9.0.2-slim-buster, 9.0-slim-buster, 9.0.2-slim, 9.0-slim
+Architectures: amd64, arm64v8
+GitCommit: 360d1218729e65b9a783fd30fc2d3c3b473d29ce
+Directory: 9.0/slim-buster

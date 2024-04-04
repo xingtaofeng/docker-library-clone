@@ -4,9 +4,17 @@ set -eo pipefail
 dir="$(dirname "$(readlink -f "$BASH_SOURCE")")"
 
 # Use a client image with curl for testing
-clientImage='buildpack-deps:buster-curl'
+clientImage='buildpack-deps:bookworm-curl'
+# ensure the clientImage is ready and available
+if ! docker image inspect "$clientImage" &> /dev/null; then
+	docker pull "$clientImage" > /dev/null
+fi
 
 mysqlImage='mysql:5.7'
+# ensure the mysqlImage is ready and available
+if ! docker image inspect "$mysqlImage" &> /dev/null; then
+	docker pull "$mysqlImage" > /dev/null
+fi
 serverImage="$1"
 
 # Create an instance of the container-under-test
@@ -34,5 +42,4 @@ _request() {
 
 # Check that we can request / and that it contains the word "setup" somewhere
 # <form id="setup" method="post" action="?step=1"><label class='screen-reader-text' for='language'>Select a default language</label>
-_request GET '/' |tac|tac| grep -iq setup
-# (without "|tac|tac|" we get "broken pipe" since "grep" closes the pipe before "curl" is done reading it)
+_request GET '/' | grep -i setup > /dev/null
