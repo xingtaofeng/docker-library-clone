@@ -2,26 +2,26 @@ Maintainers: The Rocky Linux Foundation <infrastructure@rockylinux.org> (@rocky-
              Neil Hanlon <neil@resf.org> (@neilhanlon)
 GitRepo: https://github.com/rocky-linux/sig-cloud-instance-images.git
 
-Tags: 9.3.20231119, 9.3, 9
-GitFetch: refs/heads/Rocky-9.3.20231119-Base-x86_64
-GitCommit: 53416a9aaea6ac6ded18c2047d51e26983160faf
-arm64v8-GitFetch: refs/heads/Rocky-9.3.20231119-Base-aarch64
-arm64v8-GitCommit: 29d1766aa469897f6690547364d45d352cbe7ae6
-s390x-GitFetch: refs/heads/Rocky-9.3.20231119-Base-s390x
-s390x-GitCommit: 7581889c773c12e32ee0e46e627a7c66f20463bd
-ppc64le-GitFetch: refs/heads/Rocky-9.3.20231119-Base-ppc64le
-ppc64le-GitCommit: 20d0ef4cd07c7b5b368b846f1f154db280ea8e4c
+Tags: 9.4.20240509, 9.4, 9
+GitFetch: refs/heads/Rocky-9.4.20240509-Base-x86_64
+GitCommit: 711ac2a705dc8dba1982a7399a27c010273c8ae5
+arm64v8-GitFetch: refs/heads/Rocky-9.4.20240509-Base-aarch64
+arm64v8-GitCommit: 28f86ceee56f887dc227acb9c45b3f7c9cec1035
+s390x-GitFetch: refs/heads/Rocky-9.4.20240509-Base-s390x
+s390x-GitCommit: e46fbc1c3f6e36033f73ae77f749707749192253
+ppc64le-GitFetch: refs/heads/Rocky-9.4.20240509-Base-ppc64le
+ppc64le-GitCommit: 9ba2189187f2f8ae095f82390061981ba6afd92d
 Architectures: amd64, arm64v8, ppc64le, s390x
 
-Tags: 9.3.20231119-minimal, 9.3-minimal, 9-minimal
-GitFetch: refs/heads/Rocky-9.3.20231119-Minimal-x86_64
-GitCommit: e784104b999a1ff6b66cb0aeee0408fb030c840b
-arm64v8-GitFetch: refs/heads/Rocky-9.3.20231119-Minimal-aarch64
-arm64v8-GitCommit: 0b10d7d7a8ba867de715441b52c591880480bc94
-s390x-GitFetch: refs/heads/Rocky-9.3.20231119-Minimal-s390x
-s390x-GitCommit: af021ed5bf828c0abd26761a8df31b6d578c9498
-ppc64le-GitFetch: refs/heads/Rocky-9.3.20231119-Minimal-ppc64le
-ppc64le-GitCommit: 13770ec44b35cbe9af2296d0d50edc31a343e4f6
+Tags: 9.4.20240509-minimal, 9.4-minimal, 9-minimal
+GitFetch: refs/heads/Rocky-9.4.20240509-Minimal-x86_64
+GitCommit: d36c2f663646d987225b61f523ff6da8b2a2ba3e
+arm64v8-GitFetch: refs/heads/Rocky-9.4.20240509-Minimal-aarch64
+arm64v8-GitCommit: 20b2e8768954e8997daa14a6f1d12d5195c5c26b
+s390x-GitFetch: refs/heads/Rocky-9.4.20240509-Minimal-s390x
+s390x-GitCommit: 10fc9dbfd5257e8476d8dc5e5566f5c9bcbc7af6
+ppc64le-GitFetch: refs/heads/Rocky-9.4.20240509-Minimal-ppc64le
+ppc64le-GitCommit: 75301a237d2fdfed35166ee46425f000c027c8b6
 Architectures: amd64, arm64v8, ppc64le, s390x
 
 
